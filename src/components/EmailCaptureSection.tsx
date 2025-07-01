@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
+import { useWaitlistForm } from "../hooks/useWaitlistForm";
 
 interface EmailCaptureSectionProps {
   title?: string;
@@ -13,26 +14,24 @@ interface EmailCaptureSectionProps {
 const EmailCaptureSection = ({
   title = "Join the First 100 to Try Mary",
   description = "We'll notify you when we're ready. No spam, just clarity.",
-  buttonText = "Join the Waitlist",
+  buttonText = "Get Early Access",
   placeholderText = "Enter your email address",
 }: EmailCaptureSectionProps) => {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the email to your backend
-    setIsSubmitted(true);
-    setEmail("");
-    // Reset the submitted state after 3 seconds
-    setTimeout(() => setIsSubmitted(false), 3000);
-  };
+  const {
+    email,
+    setEmail,
+    type,
+    setType,
+    loading,
+    success,
+    error,
+    handleSubmit,
+  } = useWaitlistForm();
 
   return (
     <section
       className="w-full py-16 px-4"
       id="signup"
-      style={{ backgroundColor: "#F5F7FA" }}
     >
       <div className="max-w-6xl mx-auto">
         <Card className="overflow-hidden border-0 shadow-lg bg-gradient-to-br from-slate-50 to-white">
@@ -51,32 +50,40 @@ const EmailCaptureSection = ({
                 {description}
               </p>
 
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-              >
+              <form className="flex flex-col sm:flex-row gap-2 items-center justify-center w-full max-w-lg mx-auto" onSubmit={handleSubmit}>
                 <Input
                   type="email"
-                  placeholder={placeholderText}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email address"
                   required
-                  className="flex-grow h-12 text-base"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="flex-grow h-12 md:h-10 lg:h-9 text-base md:text-sm bg-white border border-gray-200 shadow-sm rounded-lg"
+                  style={{ minWidth: 0 }}
                 />
+                <select
+                  required
+                  value={type}
+                  onChange={e => setType(e.target.value)}
+                  className="h-12 md:h-10 lg:h-9 px-3 rounded-lg border border-gray-200 text-base md:text-sm font-inter focus:outline-none focus:ring-2 focus:ring-coral-400 bg-white shadow-sm"
+                  style={{ minWidth: 140 }}
+                >
+                  <option value="" disabled>Select type</option>
+                  <option value="Freelancer">Freelancer</option>
+                  <option value="Small Business Owner">Small Business Owner</option>
+                  <option value="Individual">Individual</option>
+                  <option value="Other">Other</option>
+                </select>
                 <Button
                   type="submit"
-                  className="h-12 px-6 font-inter font-medium text-white hover:opacity-90 transition-opacity"
+                  disabled={loading}
+                  className="h-12 px-6 font-inter font-medium text-white hover:opacity-90 transition-opacity whitespace-nowrap"
                   style={{ backgroundColor: "#FF6B6B" }}
                 >
-                  {buttonText}
+                  {loading ? 'Submitting...' : 'Get Early Access'}
                 </Button>
               </form>
-
-              {isSubmitted && (
-                <div className="mt-4 text-green-600 animate-fade-in">
-                  Thank you! We'll be in touch soon.
-                </div>
-              )}
+              {error && <div className="text-red-600 text-xs mt-2">{error}</div>}
+              {success && <div className="text-green-600 text-xs mt-2">Thank you! We'll be in touch soon.</div>}
 
               <p
                 className="text-xs mt-4 font-inter"

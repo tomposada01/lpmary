@@ -22,5 +22,8 @@ export default defineConfig({
   server: {
     // @ts-ignore
     allowedHosts: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
   }
 });

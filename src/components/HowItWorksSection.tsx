@@ -15,24 +15,24 @@ const HowItWorksSection = () => {
   const steps: Step[] = [
     {
       id: 1,
-      title: "Upload Your CSV",
+      title: "Upload Your Transactions",
       description:
-        "Export your transactions from your bank or Xero. Mary handles the messy part.",
+        "Upload your CSV file. No account linking needed.",
       icon: <FileText className="h-8 w-8" style={{ color: "#FF6B6B" }} />,
       imageAlt: "CSV upload interface",
     },
     {
       id: 2,
-      title: "Mary Categorises Everything",
-      description: "She instantly reads and labels your expenses using AI.",
+      title: "Let the AI Categorise Everything",
+      description: "Mary auto-tags expenses and adds notes when things are unclear.",
       icon: <Zap className="h-8 w-8" style={{ color: "#FF6B6B" }} />,
       imageAlt: "Categorised transactions view",
     },
     {
       id: 3,
-      title: "Add Quick Notes",
+      title: "Export or Share with Your Accountant",
       description:
-        'Add context like "client lunch" or "gear upgrade." Everything is saved and ready for tax time.',
+        "Download a clean report ready for the tax office or your accountant.",
       icon: <CheckCircle className="h-8 w-8" style={{ color: "#FF6B6B" }} />,
       imageAlt: "Transaction notes interface",
     },
@@ -62,9 +62,8 @@ const HowItWorksSection = () => {
   return (
     <section
       className="py-20 px-4 md:px-8"
-      style={{ backgroundColor: "#F5F7FA" }}
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 p-8 md:p-12">
         <div className="text-center mb-16">
           <h2
             className="text-3xl md:text-4xl font-bold font-sora mb-4"
@@ -72,6 +71,7 @@ const HowItWorksSection = () => {
           >
             See How Mary Works
           </h2>
+          <div className="mx-auto my-6 h-1 w-64 max-w-full rounded-full" style={{ background: '#FF6B6B' }} />
           <p
             className="text-lg font-inter max-w-2xl mx-auto"
             style={{ color: "#2B3A42" }}
@@ -132,24 +132,37 @@ const HowItWorksSection = () => {
                   index % 2 === 1 ? "lg:col-start-1" : ""
                 }`}
               >
-                <Card className="bg-white border-none shadow-lg overflow-hidden">
-                  <CardContent className="p-8">
-                    <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl h-64 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-12 h-12 bg-gradient-to-br from-[#FF6B6B] to-[#1A365D] rounded-full mx-auto mb-4 flex items-center justify-center">
-                          {step.icon}
-                        </div>
-                        <p className="text-gray-600 font-inter text-sm">
-                          {step.imageAlt}
-                        </p>
-                      </div>
-                    </div>
+                <Card className="bg-white border-none shadow-lg overflow-hidden flex items-center justify-center p-0">
+                  <CardContent className="p-0">
+                    {index === 0 ? (
+                      <img
+                        src="/upload.demo-gif.gif"
+                        alt="CSV Upload Demo"
+                        className="object-contain w-full h-auto max-h-[28rem] rounded-xl shadow-md"
+                        style={{ background: '#f3f4f6' }}
+                        loading="lazy"
+                      />
+                    ) : index === 1 ? (
+                      <img
+                        src="/transaction.demo-gif.gif"
+                        alt="Categorised Transactions Demo"
+                        className="object-contain w-full h-auto max-h-[28rem] rounded-xl shadow-md"
+                        style={{ background: '#f3f4f6' }}
+                        loading="lazy"
+                      />
+                    ) : index === 2 ? (
+                      <img
+                        src="/export.demo-gif.gif"
+                        alt="Export Demo"
+                        className="object-contain w-full h-auto max-h-[28rem] rounded-xl shadow-md"
+                        style={{ background: '#f3f4f6' }}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <></>
+                    )}
                   </CardContent>
                 </Card>
-
-                {/* Decorative elements */}
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-br from-[#FF6B6B]/20 to-[#1A365D]/20 rounded-full blur-xl" />
-                <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-[#1A365D]/20 to-[#FF6B6B]/20 rounded-full blur-xl" />
               </div>
             </motion.div>
           ))}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Eye, FileCheck, Clock } from "lucide-react";
+import { Eye, FileCheck, Clock, CheckCircle } from "lucide-react";
 
 interface BenefitProps {
   icon: React.ReactNode;
@@ -40,57 +40,48 @@ const BenefitsSection = () => {
   const benefits = [
     {
       icon: <Eye className="h-8 w-8" style={{ color: "#FF6B6B" }} />,
-      title: "Clarity On Every Charge",
-      description:
-        "No more vague bank descriptions. Mary tells you what that $92 actually was.",
+      title: "Built for freelancers and small business owners",
+      description: "Clarifies messy transactions instantly",
     },
     {
       icon: <FileCheck className="h-8 w-8" style={{ color: "#FF6B6B" }} />,
-      title: "Stress Free Tax Time",
-      description:
-        "Everything is pre labelled and export ready for your accountant.",
+      title: "Helps you stay ready for tax time",
+      description: "Remembers what that $92 charge was for",
     },
     {
       icon: <Clock className="h-8 w-8" style={{ color: "#FF6B6B" }} />,
-      title: "Save Hours",
-      description: "No more spreadsheets or chasing receipts.",
+      title: "Zero setup — just upload and go",
+      description: "",
     },
   ];
 
   return (
-    <section className="py-20 px-4" style={{ backgroundColor: "#F5F7FA" }}>
+    <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2
-            className="text-3xl md:text-4xl font-bold font-sora mb-4"
-            style={{ color: "#2B3A42" }}
-          >
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold font-sora mb-4" style={{ color: "#2B3A42" }}>
             Why Users Love Mary
           </h2>
-          <p
-            className="text-xl font-inter max-w-2xl mx-auto"
-            style={{ color: "#2B3A42" }}
-          >
-            Mary makes expense tracking effortless with powerful AI that works
-            for you.
+          <p className="text-xl font-inter max-w-2xl mx-auto" style={{ color: "#2B3A42" }}>
+            Mary makes expense tracking effortless with powerful AI that works for you.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {benefits.map((benefit, index) => (
-            <Benefit
-              key={index}
-              icon={benefit.icon}
-              title={benefit.title}
-              description={benefit.description}
-            />
-          ))}
-        </div>
-
-        <div className="text-center">
-          <p className="text-lg font-inter italic" style={{ color: "#2B3A42" }}>
-            "Loved by freelancers. Built for real work."
-          </p>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center bg-white/90 rounded-xl shadow-lg p-8 border border-gray-100 text-center">
+            <Eye className="text-coral-500 w-10 h-10 mb-4" />
+            <div className="font-semibold text-lg mb-2">Built For Freelancers And Small Business Owners</div>
+            <div className="text-base text-gray-700">Clarifies messy transactions in seconds</div>
+          </div>
+          <div className="flex flex-col items-center bg-white/90 rounded-xl shadow-lg p-8 border border-gray-100 text-center">
+            <FileCheck className="text-navy-500 w-10 h-10 mb-4" />
+            <div className="font-semibold text-lg mb-2">Helps You Stay Ready For Tax Time</div>
+            <div className="text-base text-gray-700">Remembers exactly what that $92 charge was for</div>
+          </div>
+          <div className="flex flex-col items-center bg-white/90 rounded-xl shadow-lg p-8 border border-gray-100 text-center">
+            <Clock className="text-green-500 w-10 h-10 mb-4" />
+            <div className="font-semibold text-lg mb-2">Zero Setup Required</div>
+            <div className="text-base text-gray-700">Simply upload your file and get started</div>
+          </div>
         </div>
       </div>
     </section>
