@@ -1,17 +1,19 @@
-import { Router, Request, Response } from 'express';
-import { fetch } from 'undici';
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-const router = Router();
-
-router.post('/subscribe', async (req: Request, res: Response) => {
   const { email, type } = req.body;
   if (!email || !type) {
+    console.error('Missing email or type in request body:', req.body);
     return res.status(400).json({ error: 'Email and type are required' });
   }
 
-  const groupId = parseInt(process.env.MAILERLITE_GROUP_ID || '', 10);
-  if (isNaN(groupId)) {
-    return res.status(500).json({ error: 'Invalid group ID' });
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  const groupId = process.env.MAILERLITE_GROUP_ID;
+  if (!apiKey || !groupId) {
+    console.error('Missing MAILERLITE_API_KEY or MAILERLITE_GROUP_ID environment variables.');
+    return res.status(500).json({ error: 'Server configuration error' });
   }
 
   try {
@@ -19,7 +21,7 @@ router.post('/subscribe', async (req: Request, res: Response) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-MailerLite-ApiKey': process.env.MAILERLITE_API_KEY || '',
+        'X-MailerLite-ApiKey': apiKey,
       },
       body: JSON.stringify({
         email,
@@ -29,13 +31,14 @@ router.post('/subscribe', async (req: Request, res: Response) => {
     });
 
     if (!response.ok) {
-      return res.status(500).json({ error: 'MailerLite API error' });
+      const errorText = await response.text();
+      console.error('MailerLite API error:', response.status, errorText);
+      throw new Error('MailerLite API error');
     }
 
     return res.status(200).json({ success: true });
   } catch (error) {
+    console.error('Failed to subscribe:', error);
     return res.status(500).json({ error: 'Failed to subscribe' });
   }
-});
-
-export default router; 
+} 
