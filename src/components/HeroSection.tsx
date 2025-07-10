@@ -31,25 +31,19 @@ const HeroSection = ({
 
   return (
     <section
-      className="w-full min-h-screen flex flex-col items-center lg:items-start justify-center lg:justify-start px-4 md:px-8 lg:px-16 pt-0 pb-16 relative overflow-hidden"
+      className="w-full px-4 md:px-8 lg:px-16 py-8 md:py-16 lg:py-20 relative overflow-hidden"
     >
-      {/* Logo floating above the fold */}
-      <div className="w-full flex justify-center lg:justify-start items-center lg:items-start">
-        <img
-          src="/mary-logo-new.png"
-          alt="Mary"
-          className="h-20 md:h-28 lg:h-32 w-auto mb-4 mt-0"
-          style={{ zIndex: 2 }}
-        />
-      </div>
-
-      {/* Background gradient elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-coral-100/30 to-navy-500/20 rounded-full blur-3xl -z-10 opacity-70" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-navy-500/20 to-coral-100/30 rounded-full blur-3xl -z-10 opacity-70" />
-
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        {/* Left column - Text content */}
+        {/* Left column - Logo and Text content */}
         <div className="flex flex-col space-y-4 text-center lg:text-left max-w-xl lg:max-w-lg">
+          <div className="flex justify-center lg:justify-start items-center lg:items-start mb-2">
+            <img
+              src="/mary-logo-new.png"
+              alt="Mary"
+              className="h-20 md:h-28 lg:h-32 w-auto mt-0"
+              style={{ zIndex: 2 }}
+            />
+          </div>
           <h1
             className="text-2xl md:text-3xl lg:text-4xl font-bold font-sora leading-tight lg:leading-snug"
             style={{ color: "#2B3A42" }}
@@ -103,7 +97,7 @@ const HeroSection = ({
             style={{ color: "#2B3A42" }}
           >
             <CheckCircle className="text-green-500 w-4 h-4 inline-block" />
-            Join the waitlist - first 100 get early access and a chance at free lifetime use.
+            Join the waitlist - first 100 get early access and free lifetime use.
           </p>
         </div>
 
